@@ -1,0 +1,175 @@
+/* AX-Channels® — interactions (vanilla, no build step) */
+(() => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const $ = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+
+  /* ---------- Header state ---------- */
+  const header = $('.site-header');
+  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ---------- Mobile menu ---------- */
+  const toggle = $('.menu-toggle');
+  const menu = $('#mobile-menu');
+  if (toggle && menu) {
+    const setOpen = (open) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      menu.hidden = !open;
+      header.classList.toggle('is-scrolled', open || window.scrollY > 24);
+    };
+    toggle.addEventListener('click', () => setOpen(menu.hidden));
+    $$('a', menu).forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) { setOpen(false); toggle.focus(); } });
+  }
+
+  /* ---------- Active nav link (scroll spy) ---------- */
+  const navLinks = $$('.nav-link');
+  const sections = navLinks.map((a) => $(a.getAttribute('href'))).filter(Boolean);
+  if ('IntersectionObserver' in window && sections.length) {
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        navLinks.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === '#' + en.target.id));
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach((s) => spy.observe(s));
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  const reveals = $$('.reveal');
+  if (reduceMotion.matches || !('IntersectionObserver' in window)) {
+    reveals.forEach((el) => el.classList.add('is-in'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach((el) => io.observe(el));
+  }
+
+  /* ---------- Count-up stats ---------- */
+  const counters = $$('[data-count]');
+  if (counters.length && !reduceMotion.matches && 'IntersectionObserver' in window) {
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        const el = en.target; cio.unobserve(el);
+        const target = Number(el.dataset.count); const suffix = el.dataset.suffix || '';
+        const start = performance.now(); const dur = 1400;
+        const tick = (t) => {
+          const p = Math.min(1, (t - start) / dur); const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach((c) => cio.observe(c));
+  }
+
+  /* ---------- Hero carousel (accessible auto-rotation) ---------- */
+  const carousel = $('.hero-carousel');
+  if (carousel) {
+    const slides = $$('.hero-slide');
+    const thumbs = $$('[data-thumb]', carousel);
+    const tabs = $$('[data-go]', carousel);
+    const pauseBtn = $('.carousel-pause', carousel);
+    const live = $('[data-live]', carousel);
+    const DUR = 6000;
+    let index = 0, timer = null, paused = reduceMotion.matches, userPaused = false;
+    carousel.style.setProperty('--carousel-dur', DUR + 'ms');
+
+    const render = () => {
+      slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+      thumbs.forEach((t, i) => t.classList.toggle('is-active', i === index));
+      tabs.forEach((t, i) => {
+        t.classList.toggle('is-active', i === index);
+        t.classList.toggle('is-done', i < index);
+        t.setAttribute('aria-selected', String(i === index));
+        t.tabIndex = i === index ? 0 : -1;
+      });
+      if (live) live.textContent = `Slide ${index + 1} of ${slides.length}`;
+    };
+    const go = (i) => { index = (i + slides.length) % slides.length; render(); restart(); };
+    const stop = () => { clearTimeout(timer); timer = null; };
+    const restart = () => { stop(); if (!paused) timer = setTimeout(() => go(index + 1), DUR); };
+    const setPaused = (p) => {
+      paused = p; carousel.classList.toggle('is-paused', p);
+      pauseBtn.setAttribute('aria-pressed', String(p));
+      pauseBtn.setAttribute('aria-label', p ? 'Play slideshow' : 'Pause slideshow');
+      restart();
+    };
+
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => go(i));
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1); tabs[index].focus(); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(index - 1); tabs[index].focus(); }
+      });
+    });
+    pauseBtn.addEventListener('click', () => { userPaused = !paused; setPaused(!paused); });
+    carousel.addEventListener('mouseenter', () => { if (!userPaused) { stop(); carousel.classList.add('is-paused'); } });
+    carousel.addEventListener('mouseleave', () => { if (!userPaused && !paused) { carousel.classList.remove('is-paused'); restart(); } });
+    carousel.addEventListener('focusin', () => { if (!userPaused) { stop(); carousel.classList.add('is-paused'); } });
+    carousel.addEventListener('focusout', (e) => { if (!carousel.contains(e.relatedTarget) && !userPaused && !paused) { carousel.classList.remove('is-paused'); restart(); } });
+    document.addEventListener('visibilitychange', () => { document.hidden ? stop() : restart(); });
+
+    render();
+    if (paused) setPaused(true); else restart();
+  }
+
+  /* ---------- Marquee pause control ---------- */
+  const marquee = $('[data-marquee]');
+  const mPause = $('.marquee-pause');
+  if (marquee && mPause) {
+    const track = $('.marquee-track', marquee);
+    track.innerHTML += track.innerHTML; // duplicate for seamless loop
+    $$('li', track).slice(track.children.length / 2).forEach((li) => li.setAttribute('aria-hidden', 'true'));
+    if (reduceMotion.matches) { marquee.classList.add('is-paused'); mPause.hidden = true; }
+    mPause.addEventListener('click', () => {
+      const p = !marquee.classList.contains('is-paused');
+      marquee.classList.toggle('is-paused', p);
+      mPause.setAttribute('aria-pressed', String(p));
+      mPause.textContent = p ? 'Play' : 'Pause';
+    });
+  }
+
+  /* ---------- Custom cursor (fine pointers only) ---------- */
+  const cursor = $('.cursor');
+  if (cursor && window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduceMotion.matches) {
+    let x = 0, y = 0, cx = 0, cy = 0, raf = null;
+    const loop = () => { cx += (x - cx) * 0.2; cy += (y - cy) * 0.2; cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`; raf = requestAnimationFrame(loop); };
+    window.addEventListener('mousemove', (e) => { x = e.clientX; y = e.clientY; if (!raf) { document.body.classList.add('has-cursor'); loop(); } }, { passive: true });
+    document.addEventListener('mouseover', (e) => cursor.classList.toggle('is-hover', !!e.target.closest('a, button, [role="tab"]')));
+    document.addEventListener('mouseleave', () => document.body.classList.remove('has-cursor'));
+    document.addEventListener('mouseenter', () => document.body.classList.add('has-cursor'));
+  }
+
+  /* ---------- Fit hero wordmark to available width ---------- */
+  const wordmark = $('.wordmark');
+  const wordText = $('.wordmark-text');
+  if (wordmark && wordText) {
+    const fit = () => {
+      if (window.innerWidth <= 860) { wordmark.classList.remove('is-fitted'); wordmark.style.removeProperty('--wordmark-size'); return; }
+      wordmark.classList.remove('is-fitted');
+      const avail = wordmark.clientWidth - 4;
+      const base = parseFloat(getComputedStyle(wordmark).fontSize);
+      const width = wordText.getBoundingClientRect().width;
+      if (!width || !avail) return;
+      const size = Math.max(32, Math.floor(base * (avail / width) * 100) / 100);
+      wordmark.style.setProperty('--wordmark-size', size + 'px');
+      wordmark.classList.add('is-fitted');
+    };
+    const ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+    ready.then(fit);
+    fit();
+    let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fit, 80); });
+  }
+
+  /* ---------- Footer year ---------- */
+  const year = $('[data-year]'); if (year) year.textContent = new Date().getFullYear();
+})();
