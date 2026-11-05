@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="image" href="assets/img/hero-portrait.webp">
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261105b">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -135,65 +135,39 @@
     <!-- ============ STUDIO ============ -->
     <section class="studio section" id="about" aria-labelledby="studio-title">
       <div class="container">
-        <div class="studio-top">
+        <div class="studio-head">
           <p class="eyebrow reveal" id="studio-title"><sup>®</sup> Studio</p>
-          <p class="studio-tag reveal">Johannesburg · Cape Town <i aria-hidden="true"></i> Est. 2016</p>
-        </div>
-
-        <h2 class="display studio-manifesto reveal">
-          <span class="line">Design with a</span>
-          <span class="line">point <span class="inline-media" aria-hidden="true"><img src="assets/img/city-aerial.webp" width="1280" height="1600" alt="" loading="lazy"></span> of view.</span>
-          <span class="line muted">Built to perform.</span>
-        </h2>
-
-        <div class="studio-grid">
-          <figure class="studio-figure reveal">
-            <div class="studio-frame">
-              <img src="assets/img/portrait-acrylic.webp" width="1600" height="1148" alt="Studio portrait of a creative holding a sheet of acrylic marked with brush strokes" loading="lazy">
-              <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span>
-              <span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
-            </div>
-            <figcaption>Studio session · Braamfontein, 2025</figcaption>
-            <div class="ledger" role="list" aria-label="Studio in numbers">
-              <div role="listitem"><strong data-count="9">9</strong><span>Years crafting</span></div>
-              <div role="listitem"><strong data-count="120" data-suffix="+">120+</strong><span>Projects shipped</span></div>
-              <div role="listitem"><strong data-count="14">14</strong><span>Industries served</span></div>
-              <div role="listitem"><strong data-count="92" data-suffix="%">92%</strong><span>Clients return</span></div>
-            </div>
-          </figure>
-
-          <div class="studio-body">
-            <p class="studio-lede reveal">
-              We're a premium design studio from South Africa building digital products and brands that are sharp, intentional and impossible to ignore.
-            </p>
-            <p class="studio-copy reveal">
-              Founded in 2016, we work as a small senior team across web, mobile and brand. No layers, no hand-offs to juniors. The people you meet in the first call are the people who design and build your work.
-            </p>
-
-            <ol class="principles reveal" aria-label="What we stand for">
-              <li>
-                <span class="principle-no">01</span>
-                <h3>Sharp</h3>
-                <p>Every pixel earns its place. We cut what doesn't serve the goal.</p>
-              </li>
-              <li>
-                <span class="principle-no">02</span>
-                <h3>Intentional</h3>
-                <p>Strategy first. Design decisions are tied to the outcome you need.</p>
-              </li>
-              <li>
-                <span class="principle-no">03</span>
-                <h3>Impossible to ignore</h3>
-                <p>Distinct work that stops the scroll and moves people to act.</p>
-              </li>
-            </ol>
-
-            <div class="studio-actions reveal">
-              <a href="about.html" class="btn btn-outline">Meet the studio <span aria-hidden="true">→</span></a>
-              <a href="work.html" class="link-arrow">See the work <span aria-hidden="true">→</span></a>
+          <div>
+            <h2 class="display studio-title reveal">Design with a point of view. <span class="muted">Built to perform.</span></h2>
+            <div class="studio-intro">
+              <p class="statement reveal">A small senior studio from South Africa, building digital products and brands that are sharp, intentional and impossible to ignore.</p>
+              <div class="reveal">
+                <p>Founded in 2016, we work as one team across web, mobile and brand. No layers and no hand-offs to juniors: the people you meet in the first call design and build your work.</p>
+                <a href="about.html" class="link-arrow">Meet the studio <span aria-hidden="true">→</span></a>
+              </div>
             </div>
           </div>
         </div>
+
+        <figure class="band reveal">
+          <img src="assets/img/portrait-acrylic.webp" width="1600" height="1148" alt="A designer holding a sheet of acrylic marked with brush strokes, during a studio session" loading="lazy" style="--pos: 55% 30%">
+          <span class="index">Studio</span>
+          <span class="tag">Braamfontein · 2025</span>
+        </figure>
+        <figcaption class="band-caption reveal"><span><strong>Senior hands only.</strong> Every project is led by the designer you meet first.</span><span>Studio session, Johannesburg</span></figcaption>
+
+        <div class="stats reveal" role="list" aria-label="Studio in numbers">
+          <div role="listitem"><strong data-count="9">9</strong><span>Years crafting</span></div>
+          <div role="listitem"><strong data-count="120" data-suffix="+">120+</strong><span>Projects shipped</span></div>
+          <div role="listitem"><strong data-count="14">14</strong><span>Industries served</span></div>
+          <div role="listitem"><strong data-count="92" data-suffix="%">92%</strong><span>Clients return</span></div>
+        </div>
+
+        <ol class="principles" aria-label="What we stand for">
+          <li class="reveal"><span class="principle-no">01</span><h3>Sharp</h3><p>Every pixel earns its place. We cut what doesn't serve the goal.</p></li>
+          <li class="reveal"><span class="principle-no">02</span><h3>Intentional</h3><p>Strategy first. Design decisions are tied to the outcome you need.</p></li>
+          <li class="reveal"><span class="principle-no">03</span><h3>Impossible to ignore</h3><p>Distinct work that stops the scroll and moves people to act.</p></li>
+        </ol>
       </div>
     </section>
 
@@ -418,6 +392,6 @@
     <div class="footer-wordmark" aria-hidden="true">AX-CHANNELS</div>
   </footer>
 
-  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/main.js?v=20261105b" defer></script>
 </body>
 </html>

@@ -183,6 +183,10 @@
   if (workGrid && filterBtns.length) {
     const cards = $$('.work-card', workGrid);
     const empty = $('[data-work-empty]');
+    $$('[data-filter-count]').forEach((el) => {
+      const cat = el.dataset.filterCount;
+      el.textContent = cards.filter((c) => cat === 'all' || (c.dataset.cat || '').split(' ').includes(cat)).length;
+    });
     const apply = (cat) => {
       let shown = 0;
       cards.forEach((card) => {
