@@ -177,6 +177,42 @@
     let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fit, 80); });
   }
 
+  /* ---------- Services: stacked list with detail panel ---------- */
+  const svc = $('[data-services]');
+  if (svc) {
+    const items = $$('.svc-item', svc);
+    const tabs = $$('.svc-name', svc);
+    const panels = $$('.svc-detail', svc);
+    const panelsWrap = $('.svc-panels', svc);
+    const mobile = window.matchMedia('(max-width: 860px)');
+    let current = 0;
+    const place = () => {
+      // On phones the active detail sits directly under its name; on desktop it lives in the sticky column.
+      panels.forEach((pn, i) => {
+        if (mobile.matches && i === current) items[i].appendChild(pn);
+        else if (pn.parentElement !== panelsWrap) panelsWrap.appendChild(pn);
+      });
+    };
+    const activate = (i, focus) => {
+      current = i;
+      items.forEach((li, k) => li.classList.toggle('is-active', k === i));
+      tabs.forEach((t, k) => { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      panels.forEach((pn, k) => { pn.hidden = k !== i; });
+      place();
+      if (focus) tabs[i].focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => activate(i));
+      t.addEventListener('mouseenter', () => { if (!mobile.matches) activate(i); });
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); activate((i + 1) % tabs.length, true); }
+        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); activate((i - 1 + tabs.length) % tabs.length, true); }
+      });
+    });
+    mobile.addEventListener('change', place);
+    activate(0);
+  }
+
   /* ---------- Work page: category filters ---------- */
   const workGrid = $('[data-work-grid]');
   const filterBtns = $$('[data-filter]');
