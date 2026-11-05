@@ -15,7 +15,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="image" href="assets/img/hero-portrait.webp">
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261107">
+  <script>
+    /* Apply the saved theme before first paint (dark is the default) */
+    (function () {
+      var t = 'dark';
+      try { var s = localStorage.getItem('ax-theme'); if (s === 'light' || s === 'dark') t = s; } catch (e) {}
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261108">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -37,6 +45,10 @@
       </nav>
 
       <div class="header-actions">
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light theme">
+          <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+          <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
+        </button>
         <a href="#contact" class="btn btn-pill"><span class="dot" aria-hidden="true"></span>Start a project</a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
           <span></span><span></span>
@@ -145,7 +157,7 @@
         <div class="studio-head">
           <p class="eyebrow reveal" id="studio-title"><sup>®</sup> About AX-Channels</p>
           <div>
-            <h2 class="display studio-title reveal">Design that solves<br>the problem.</h2>
+            <h2 class="display studio-title reveal" data-fit><span class="ln">Design that solves</span><span class="ln">the problem.</span></h2>
             <div class="studio-intro">
               <div class="reveal">
                 <p class="studio-lede">A South African digital design studio specialising in UX, UI and digital solutions for businesses.</p>
@@ -189,89 +201,77 @@
       <div class="container">
         <div class="services-head">
           <p class="eyebrow reveal sr-only" id="services-title">Our services</p>
-          <h2 class="services-title reveal">Everything <span class="pill" aria-hidden="true"><img src="assets/img/pill-saas.webp" width="320" height="320" alt="" loading="lazy"></span> your<br>brand needs</h2>
+          <h2 class="services-title reveal" data-fit><span class="ln">Everything <span class="pill" aria-hidden="true"><img src="assets/img/pill-saas.webp" width="320" height="320" alt="" loading="lazy"></span> your</span><span class="ln">brand needs</span></h2>
           <p class="services-lede reveal">Five service lines, one standard. Strategic design, practical technology and user-centred execution, with a clear list of what every engagement includes.</p>
         </div>
 
-        <div class="services-grid reveal" data-services>
-          <ul class="svc-list" role="tablist" aria-label="Services">
-            <li class="svc-item is-active">
-              <button type="button" class="svc-name" id="svc-tab-1" role="tab" aria-selected="true" aria-controls="svc-panel-1" data-svc="0">
-                <span class="svc-arrow" aria-hidden="true">→</span>
-                <span class="svc-label">Website Design &amp; Development</span>
-                <span class="svc-index" aria-hidden="true">[01]</span>
-              </button>
-            </li>
-            <li class="svc-item">
-              <button type="button" class="svc-name" id="svc-tab-2" role="tab" aria-selected="false" aria-controls="svc-panel-2" data-svc="1">
-                <span class="svc-arrow" aria-hidden="true">→</span>
-                <span class="svc-label">UI/UX &amp; Product Design</span>
-                <span class="svc-index" aria-hidden="true">[02]</span>
-              </button>
-            </li>
-            <li class="svc-item">
-              <button type="button" class="svc-name" id="svc-tab-3" role="tab" aria-selected="false" aria-controls="svc-panel-3" data-svc="2">
-                <span class="svc-arrow" aria-hidden="true">→</span>
-                <span class="svc-label">SaaS &amp; Enterprise Dashboards</span>
-                <span class="svc-index" aria-hidden="true">[03]</span>
-              </button>
-            </li>
-            <li class="svc-item">
-              <button type="button" class="svc-name" id="svc-tab-4" role="tab" aria-selected="false" aria-controls="svc-panel-4" data-svc="3">
-                <span class="svc-arrow" aria-hidden="true">→</span>
-                <span class="svc-label">Mobile Application Design</span>
-                <span class="svc-index" aria-hidden="true">[04]</span>
-              </button>
-            </li>
-            <li class="svc-item">
-              <button type="button" class="svc-name" id="svc-tab-5" role="tab" aria-selected="false" aria-controls="svc-panel-5" data-svc="4">
-                <span class="svc-arrow" aria-hidden="true">→</span>
-                <span class="svc-label">Branding &amp; Graphic Design</span>
-                <span class="svc-index" aria-hidden="true">[05]</span>
-              </button>
-            </li>
-          </ul>
-          <div class="svc-panels">
-            <div class="svc-detail is-active" id="svc-panel-1" role="tabpanel" aria-labelledby="svc-tab-1">
-              <figure class="svc-media"><img src="assets/img/service-web.webp" width="1000" height="667" alt="Portrait in white headphones inside a symmetrical white corridor" loading="eager" style="--pos: 50% 30%"></figure>
+        <div class="services-stage" data-services>
+          <div class="services-visual" aria-hidden="true">
+            <div class="sv-frame">
+              <figure class="sv-slide is-active" data-sv-slide style="--pos: 50% 30%"><img src="assets/img/service-web.webp" width="1000" height="667" alt="" loading="eager" decoding="async"></figure>
+              <figure class="sv-slide" data-sv-slide style="--pos: 60% 40%"><img src="assets/img/service-ux.webp" width="707" height="608" alt="" loading="lazy" decoding="async"></figure>
+              <figure class="sv-slide" data-sv-slide style="--pos: 40% 40%"><img src="assets/img/service-saas.webp" width="1000" height="817" alt="" loading="lazy" decoding="async"></figure>
+              <figure class="sv-slide" data-sv-slide style="--pos: 50% 35%"><img src="assets/img/service-mobile.webp" width="995" height="1400" alt="" loading="lazy" decoding="async"></figure>
+              <figure class="sv-slide" data-sv-slide style="--pos: 55% 25%"><img src="assets/img/service-brand.webp" width="1400" height="1147" alt="" loading="lazy" decoding="async"></figure>
+              <div class="sv-progress"><i></i></div>
+              <div class="sv-hud">
+                <span class="sv-count"><span class="roll" data-sv-roll><span>01</span><span>02</span><span>03</span><span>04</span><span>05</span></span> <small>/ 05</small></span>
+                <span class="sv-label"><span class="is-active" data-sv-label>Website Design &amp; Development</span><span data-sv-label>UI/UX &amp; Product Design</span><span data-sv-label>SaaS &amp; Enterprise Dashboards</span><span data-sv-label>Mobile Application Design</span><span data-sv-label>Branding &amp; Graphic Design</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="services-list">
+            <article class="service reveal is-active" data-service aria-labelledby="svc-title-1">
+              <figure class="service-media" style="--pos: 50% 30%"><img src="assets/img/service-web.webp" width="1000" height="667" alt="Portrait in white headphones inside a symmetrical white corridor" loading="lazy" decoding="async"></figure>
+              <span class="service-no">[01] / 05</span>
+              <h3 id="svc-title-1" data-fit><span class="ln">Website Design</span><span class="ln">&amp; Development</span></h3>
               <p class="svc-kicker"><span aria-hidden="true">+</span> Websites</p>
               <p class="svc-desc">Professional websites that help businesses establish their digital presence, communicate their value and connect with their audiences.</p>
               <p class="svc-included">What's included</p>
               <ul class="tags" aria-label="What's included"><li>Business &amp; corporate websites</li><li>Landing pages</li><li>E-commerce &amp; online stores</li><li>Website redesigns</li><li>CMS-powered websites</li><li>Responsive experiences</li></ul>
               <a href="#contact" class="link-arrow">Start a website project <span aria-hidden="true">→</span></a>
-            </div>
-            <div class="svc-detail" id="svc-panel-2" role="tabpanel" aria-labelledby="svc-tab-2" hidden>
-              <figure class="svc-media"><img src="assets/img/service-ux.webp" width="707" height="608" alt="Portrait wearing a mixed-reality headset against a blue background" loading="lazy" style="--pos: 60% 40%"></figure>
+            </article>
+            <article class="service reveal" data-service aria-labelledby="svc-title-2">
+              <figure class="service-media" style="--pos: 60% 40%"><img src="assets/img/service-ux.webp" width="707" height="608" alt="Portrait wearing a mixed-reality headset against a blue background" loading="lazy" decoding="async"></figure>
+              <span class="service-no">[02] / 05</span>
+              <h3 id="svc-title-2" data-fit><span class="ln">UI/UX &amp;</span><span class="ln">Product Design</span></h3>
               <p class="svc-kicker"><span aria-hidden="true">+</span> UI/UX</p>
               <p class="svc-desc">User-centred digital products with an emphasis on usability, functionality, consistency and intuitive interactions.</p>
               <p class="svc-included">What's included</p>
               <ul class="tags" aria-label="What's included"><li>UI design</li><li>UX design</li><li>User flows &amp; journey mapping</li><li>Wireframing &amp; prototyping</li><li>Information architecture</li><li>Design systems</li><li>Interface audits</li></ul>
               <a href="#contact" class="link-arrow">Design a product <span aria-hidden="true">→</span></a>
-            </div>
-            <div class="svc-detail" id="svc-panel-3" role="tabpanel" aria-labelledby="svc-tab-3" hidden>
-              <figure class="svc-media"><img src="assets/img/service-saas.webp" width="1000" height="817" alt="Portrait in an orange helmet inside a clear glass dome" loading="lazy" style="--pos: 40% 40%"></figure>
+            </article>
+            <article class="service reveal" data-service aria-labelledby="svc-title-3">
+              <figure class="service-media" style="--pos: 40% 40%"><img src="assets/img/service-saas.webp" width="1000" height="817" alt="Portrait in an orange helmet inside a clear glass dome" loading="lazy" decoding="async"></figure>
+              <span class="service-no">[03] / 05</span>
+              <h3 id="svc-title-3" data-fit><span class="ln">SaaS &amp; Enterprise</span><span class="ln">Dashboards</span></h3>
               <p class="svc-kicker"><span aria-hidden="true">+</span> SaaS &amp; Dashboards</p>
               <p class="svc-desc">Structured digital systems that help businesses manage information, workflows, operations and everyday business activities.</p>
               <p class="svc-included">What's included</p>
               <ul class="tags" aria-label="What's included"><li>SaaS platform interfaces</li><li>Enterprise dashboards</li><li>Business management interfaces</li><li>Admin &amp; operational dashboards</li><li>Workflow &amp; process design</li><li>Data visualisation</li><li>Role-based experiences</li></ul>
               <a href="#contact" class="link-arrow">Plan a dashboard system <span aria-hidden="true">→</span></a>
-            </div>
-            <div class="svc-detail" id="svc-panel-4" role="tabpanel" aria-labelledby="svc-tab-4" hidden>
-              <figure class="svc-media"><img src="assets/img/service-mobile.webp" width="995" height="1400" alt="Portrait holding a glowing neon heart against a yellow background" loading="lazy" style="--pos: 50% 35%"></figure>
+            </article>
+            <article class="service reveal" data-service aria-labelledby="svc-title-4">
+              <figure class="service-media" style="--pos: 50% 35%"><img src="assets/img/service-mobile.webp" width="995" height="1400" alt="Portrait holding a glowing neon heart against a yellow background" loading="lazy" decoding="async"></figure>
+              <span class="service-no">[04] / 05</span>
+              <h3 id="svc-title-4" data-fit><span class="ln">Mobile Application</span><span class="ln">Design</span></h3>
               <p class="svc-kicker"><span aria-hidden="true">+</span> Mobile apps</p>
               <p class="svc-desc">Mobile application experiences that make digital services and products easier to access and use.</p>
               <p class="svc-included">What's included</p>
               <ul class="tags" aria-label="What's included"><li>Mobile app UI/UX</li><li>App architecture &amp; user flows</li><li>Interactive prototypes</li><li>Responsive interface systems</li><li>Design systems &amp; developer handoff</li></ul>
               <a href="#contact" class="link-arrow">Design a mobile app <span aria-hidden="true">→</span></a>
-            </div>
-            <div class="svc-detail" id="svc-panel-5" role="tabpanel" aria-labelledby="svc-tab-5" hidden>
-              <figure class="svc-media"><img src="assets/img/service-brand.webp" width="1400" height="1147" alt="Portrait with a sculpted silver costume and white hair" loading="lazy" style="--pos: 55% 25%"></figure>
+            </article>
+            <article class="service reveal" data-service aria-labelledby="svc-title-5">
+              <figure class="service-media" style="--pos: 55% 25%"><img src="assets/img/service-brand.webp" width="1400" height="1147" alt="Portrait with a sculpted silver costume and white hair" loading="lazy" decoding="async"></figure>
+              <span class="service-no">[05] / 05</span>
+              <h3 id="svc-title-5" data-fit><span class="ln">Branding &amp;</span><span class="ln">Graphic Design</span></h3>
               <p class="svc-kicker"><span aria-hidden="true">+</span> Branding</p>
               <p class="svc-desc">A consistent visual identity across your digital and communication channels, from the logo to everyday assets.</p>
               <p class="svc-included">What's included</p>
               <ul class="tags" aria-label="What's included"><li>Logo design</li><li>Brand identity systems</li><li>Brand guidelines</li><li>Marketing &amp; promotional graphics</li><li>Digital communication assets</li><li>Stationery &amp; visual materials</li></ul>
               <a href="#contact" class="link-arrow">Build a brand <span aria-hidden="true">→</span></a>
-            </div>
+            </article>
           </div>
         </div>
       </div>
@@ -282,7 +282,7 @@
       <div class="container">
         <div class="section-head">
           <p class="eyebrow reveal" id="work-title"><sup>®</sup> Selected work</p>
-          <h2 class="display reveal">Purposeful work,<br>across every channel.</h2>
+          <h2 class="display reveal" data-fit><span class="ln">Purposeful work,</span><span class="ln">every channel.</span></h2>
         </div>
 
         <div class="work-grid">
@@ -332,7 +332,7 @@
         <div class="section-head">
           <p class="eyebrow reveal" id="process-title"><sup>®</sup> Our approach</p>
           <div>
-            <h2 class="display reveal">Good design begins<br>with the problem.</h2>
+            <h2 class="display reveal" data-fit><span class="ln">Good design begins</span><span class="ln">with the problem.</span></h2>
             <p class="section-lede reveal">Every project combines business requirements, user needs and practical implementation considerations.</p>
           </div>
         </div>
@@ -367,9 +367,7 @@
       <div class="cta-bg" aria-hidden="true"></div>
       <div class="container">
         <p class="eyebrow reveal"><sup>®</sup> Start a project</p>
-        <h2 class="display-xl reveal" id="cta-title">
-          <span class="chrome-text">Let's build</span><br>something<br>meaningful.
-        </h2>
+        <h2 class="display-xl reveal" id="cta-title" data-fit><span class="ln chrome-text">Let's build</span><span class="ln">meaningful work.</span></h2>
         <div class="cta-row reveal">
           <a href="mailto:hello@axchannels.co.za" class="btn btn-solid">hello@axchannels.co.za</a>
           <a href="tel:+27110000000" class="link-arrow">+27 11 000 0000 <span aria-hidden="true">→</span></a>
@@ -419,6 +417,6 @@
     <div class="footer-wordmark" aria-hidden="true">AX-CHANNELS</div>
   </footer>
 
-  <script src="assets/js/main.js?v=20261107" defer></script>
+  <script src="assets/js/main.js?v=20261108" defer></script>
 </body>
 </html>

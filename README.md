@@ -18,12 +18,29 @@ Then open http://localhost:8080.
 - `index.html` — homepage (hero, what-we-design marquee, about, five services, selected work, five-step approach, commitment, CTA)
 - `about.html` — about page (what we do, mission & vision, what sets us apart, how we work, who we work with)
 - `work.html` — work page (filterable project grid by service line). Case studies are placeholders until real projects are supplied.
-- `assets/css/styles.css` — design tokens (dark · silver · white), layout, motion
-- `assets/js/main.js` — header state, mobile menu, scroll-spy, reveals, accessible hero carousel, marquee controls, work filters, custom cursor
-- `assets/img/` — silver-duotone brand visuals and procedural liquid-chrome textures (WebP, ≤1600px)
+- `assets/css/styles.css` — design tokens for the dark and light themes, layout, motion
+- `assets/js/main.js` — theme switcher, header state, mobile menu, scroll-spy, reveals, two-line heading fitting, sticky services stage, accessible hero carousel, marquee controls, work filters, custom cursor
+- `assets/img/` — silver-duotone brand visuals, colour service photography and procedural liquid-chrome textures (WebP, ≤1600px), used in dark mode
+- `assets/img/light/` — high-key light variants of every image above, used in light mode
 - `assets/raw/` — original full-resolution photography; not referenced by the site
 
-Work cards are placeholders (`figure.ph`) until real project mockups are supplied. The services section is a stacked list with a sticky detail panel (hover or click a service; arrow keys move between them; on phones the detail opens under the active name).
+Work cards are placeholders (`figure.ph`) until real project mockups are supplied. The services section is a sticky scroll stage. On desktop, the image frame stays in place while the five service panels scroll past. The panel at the centre of the viewport becomes active: its image wipes in, the counter and label roll over, and its text rises into place. A progress bar and a slight parallax follow the scroll. Below 860px, each panel shows its own image, stacked.
+
+## Themes
+
+The site ships in two themes: dark (the default) and light. The sun/moon button in the header switches between them. The choice is saved in `localStorage` (`ax-theme`) and applied by a small inline script in each page's `<head>` before the first paint, so the page doesn't flash the wrong theme.
+
+- Colours are tokens on `:root`; `:root[data-theme="light"]` overrides them (`--ink*` = surfaces, `--white` = foreground, `--silver*` = secondary text, `--ink-rgb` / `--fg-rgb` for translucent overlays).
+- Every `<img>` pointing at `assets/img/*.webp` swaps to `assets/img/light/*.webp` in light mode (handled in `main.js`). The CTA background uses the `--cta-image` token.
+- In browsers that support View Transitions, switching reveals the new theme in a circle that grows from the button; other browsers get a colour cross-fade.
+
+Light variants: toned images map their luminance onto the light ramp `#303238 → #fcfcfd`, and colour images (`service-*`, `pill-*`) are brightened with their colours kept. Each image gets its own `1 - (1 - t)^k` curve, where `k` is chosen so the average brightness lands at about 72%. Regenerate the variants whenever you add or replace an image.
+
+The `standalone-preview/` single-file builds predate the theme switcher and need rebuilding to include it.
+
+## Headings
+
+Display titles are always exactly two lines. Write each line as `<span class="ln">…</span>` and add `data-fit` to the heading. The lines never wrap, and `main.js` scales the heading down only when a line would be wider than its column.
 
 ## Visuals
 
