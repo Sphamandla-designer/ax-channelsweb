@@ -297,6 +297,7 @@ a, button, [role="tab"] { touch-action: manipulation; }
 .split { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(0, 3fr); gap: var(--space-4); align-items: start; }
 .section-head { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(0, 3fr); gap: var(--space-4); margin-bottom: var(--space-5); align-items: start; }
 .section-head .eyebrow { padding-top: 0.5em; }
+.section-lede { margin-top: var(--space-3); color: var(--silver); font-size: 1.0625rem; line-height: 1.6; max-width: 52ch; }
 
 /* --------------------------------------------------------------------------
    Media band — the single image treatment used across the site
@@ -357,8 +358,8 @@ a, button, [role="tab"] { touch-action: manipulation; }
    -------------------------------------------------------------------------- */
 .service { padding-block: var(--space-5); border-top: 1px solid var(--line); }
 .service-media { position: relative; overflow: hidden; aspect-ratio: 16 / 8.2; background: var(--ink-3); }
-.service-media img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.03); transition: transform 1.2s var(--ease-out), filter 1.2s var(--ease-out); filter: grayscale(1) brightness(0.9); }
-.service:hover .service-media img { transform: scale(1); filter: grayscale(1) brightness(1); }
+.service-media img, .service-media svg { width: 100%; height: 100%; object-fit: cover; transform: scale(1.03); transition: transform 1.2s var(--ease-out), filter 1.2s var(--ease-out); filter: grayscale(1) brightness(0.9); }
+.service:hover .service-media img, .service:hover .service-media svg { transform: scale(1); filter: grayscale(1) brightness(1); }
 .service-media .index {
   position: absolute; top: 20px; left: 20px; padding: 6px 10px;
   font-size: 0.75rem; letter-spacing: 0.12em; font-weight: 600;
@@ -393,12 +394,12 @@ a, button, [role="tab"] { touch-action: manipulation; }
 /* --------------------------------------------------------------------------
    Process
    -------------------------------------------------------------------------- */
-.steps { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
-.steps li { padding: var(--space-4) var(--space-3); border-right: 1px solid var(--line); display: grid; align-content: start; gap: var(--space-2); min-height: 320px; transition: background-color var(--dur); }
-.steps li:last-child { border-right: 0; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.steps-5 { grid-template-columns: repeat(5, 1fr); }
+.steps li { padding: var(--space-4) var(--space-3); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; align-content: start; gap: var(--space-2); min-height: 320px; transition: background-color var(--dur); }
 .steps li:hover { background: rgba(255,255,255,0.03); }
-.step-no { font-family: var(--font-display); font-weight: 900; font-variation-settings: "wdth" 125; font-size: 2.5rem; line-height: 1; color: var(--silver-3); margin-bottom: var(--space-4); }
-.steps h3 { font-family: var(--font-display); font-weight: 800; font-variation-settings: "wdth" 115; text-transform: uppercase; font-size: 1.375rem; line-height: 1; }
+.step-no { font-family: var(--font-display); font-weight: 900; font-variation-settings: "wdth" 125; font-size: 2.25rem; line-height: 1; color: var(--silver-3); margin-bottom: var(--space-3); }
+.steps h3 { font-family: var(--font-display); font-weight: 800; font-variation-settings: "wdth" 115; text-transform: uppercase; font-size: 1.25rem; line-height: 1.05; text-wrap: balance; }
 .steps p { color: var(--silver); font-size: 0.9375rem; line-height: 1.6; }
 
 /* --------------------------------------------------------------------------
@@ -445,6 +446,12 @@ a, button, [role="tab"] { touch-action: manipulation; }
 /* --------------------------------------------------------------------------
    About
    -------------------------------------------------------------------------- */
+.purpose { border-top: 1px solid var(--line); }
+.purpose-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+.purpose-card { padding: var(--space-4); border: 1px solid var(--line); background: var(--ink-2); display: grid; align-content: start; gap: var(--space-3); transition: border-color var(--dur); }
+.purpose-card:hover { border-color: var(--line-strong); }
+.purpose-card .display-sm { max-width: 18ch; text-wrap: balance; }
+.purpose-card p:not(.eyebrow) { color: var(--silver); font-size: 1.0625rem; line-height: 1.6; max-width: 52ch; }
 .story .split p { color: var(--silver); font-size: 1.0625rem; line-height: 1.65; max-width: 60ch; }
 .story .split p + p { margin-top: var(--space-3); }
 .story .statement { color: var(--white); margin-bottom: var(--space-4); max-width: 24ch; }
@@ -566,10 +573,8 @@ body.has-cursor .cursor.is-hover { width: 56px; height: 56px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .timeline-track { grid-template-columns: repeat(3, 1fr); row-gap: var(--space-4); }
   .facts { grid-template-columns: repeat(2, 1fr); }
-  .steps { grid-template-columns: repeat(2, 1fr); }
-  .steps li { min-height: 260px; border-bottom: 1px solid var(--line); }
-  .steps li:nth-child(2n) { border-right: 0; }
-  .steps li:nth-last-child(-n+2) { border-bottom: 0; }
+  .steps, .steps-5 { grid-template-columns: repeat(2, 1fr); }
+  .steps li { min-height: 240px; }
   .service-body { grid-template-columns: 1fr; gap: var(--space-3); }
 }
 
@@ -596,9 +601,11 @@ body.has-cursor .cursor.is-hover { width: 56px; height: 56px; }
   .principles { grid-template-columns: 1fr; gap: var(--space-2); }
   .band { aspect-ratio: 4 / 3; }
   .page-hero { padding-top: calc(68px + var(--space-5)); }
+  .page-hero h1, .studio-title { font-size: clamp(1.75rem, 8.2vw, 2.25rem); }
   .proof { gap: var(--space-3) var(--space-4); }
   .values .steps li { min-height: 0; }
   .studios-grid { grid-template-columns: 1fr; }
+  .purpose-grid { grid-template-columns: 1fr; }
   .work-page .work-grid { grid-template-columns: 1fr; }
   .work-card .hover-cta { display: none; }
   .section-head { margin-bottom: var(--space-4); }

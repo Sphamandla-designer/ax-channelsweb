@@ -1,6 +1,8 @@
 # AX-Channels® — Website
 
-Premium South African design studio: web design & development, mobile UX design and brand identity.
+South African digital design studio. Digital Experiences. Thoughtfully Designed.
+
+Services: website design & development, UI/UX & product design, SaaS & enterprise dashboard systems, mobile application design, branding & graphic design. Nationwide and remote.
 
 Static site, no build step.
 
@@ -13,9 +15,9 @@ Then open http://localhost:8080.
 
 ## Structure
 
-- `index.html` — homepage (hero, trust marquee, studio manifesto, services, selected work, process, CTA)
-- `about.html` — about page (story, values, how we work, milestones)
-- `work.html` — work page (filterable project grid, outcomes)
+- `index.html` — homepage (hero, what-we-design marquee, about, five services, selected work, five-step approach, commitment, CTA)
+- `about.html` — about page (what we do, mission & vision, what sets us apart, how we work, who we work with)
+- `work.html` — work page (filterable project grid by service line). Case studies are placeholders until real projects are supplied.
 - `assets/css/styles.css` — design tokens (dark · silver · white), layout, motion
 - `assets/js/main.js` — header state, mobile menu, scroll-spy, reveals, accessible hero carousel, marquee controls, work filters, custom cursor
 - `assets/img/` — silver-duotone brand visuals and procedural liquid-chrome textures (WebP, ≤1600px)
