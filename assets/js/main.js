@@ -27,12 +27,18 @@
 
   /* ---------- Active nav link (scroll spy) ---------- */
   const navLinks = $$('.nav-link');
-  const sections = navLinks.map((a) => $(a.getAttribute('href'))).filter(Boolean);
+  const sections = navLinks
+    .map((a) => a.getAttribute('href'))
+    .filter((h) => h && h.startsWith('#') && h.length > 1)
+    .map((h) => $(h)).filter(Boolean);
   if ('IntersectionObserver' in window && sections.length) {
     const spy = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
         if (!en.isIntersecting) return;
-        navLinks.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === '#' + en.target.id));
+        navLinks.forEach((a) => {
+          const h = a.getAttribute('href');
+          if (h && h.startsWith('#')) a.classList.toggle('is-active', h === '#' + en.target.id);
+        });
       });
     }, { rootMargin: '-40% 0px -55% 0px' });
     sections.forEach((s) => spy.observe(s));
@@ -59,10 +65,11 @@
         if (!en.isIntersecting) return;
         const el = en.target; cio.unobserve(el);
         const target = Number(el.dataset.count); const suffix = el.dataset.suffix || '';
+        const decimals = (String(el.dataset.count).split('.')[1] || '').length;
         const start = performance.now(); const dur = 1400;
         const tick = (t) => {
           const p = Math.min(1, (t - start) / dur); const eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = Math.round(target * eased) + suffix;
+          el.textContent = (target * eased).toFixed(decimals) + suffix;
           if (p < 1) requestAnimationFrame(tick);
         };
         requestAnimationFrame(tick);
@@ -168,6 +175,32 @@
     ready.then(fit);
     fit();
     let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fit, 80); });
+  }
+
+  /* ---------- Work page: category filters ---------- */
+  const workGrid = $('[data-work-grid]');
+  const filterBtns = $$('[data-filter]');
+  if (workGrid && filterBtns.length) {
+    const cards = $$('.work-card', workGrid);
+    const empty = $('[data-work-empty]');
+    const apply = (cat) => {
+      let shown = 0;
+      cards.forEach((card) => {
+        const match = cat === 'all' || (card.dataset.cat || '').split(' ').includes(cat);
+        card.classList.toggle('is-hidden', !match);
+        card.classList.remove('is-entering');
+        if (match) {
+          shown++;
+          card.classList.add('is-in');
+          if (!reduceMotion.matches) { void card.offsetWidth; card.classList.add('is-entering'); }
+        }
+      });
+      if (empty) empty.hidden = shown > 0;
+      filterBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === cat)));
+    };
+    filterBtns.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter)));
+    const initial = location.hash.replace('#', '');
+    if (filterBtns.some((b) => b.dataset.filter === initial)) apply(initial);
   }
 
   /* ---------- Footer year ---------- */

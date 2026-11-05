@@ -1,4 +1,4 @@
-# AX-Channels® — Homepage
+# AX-Channels® — Website
 
 Premium South African design studio: web design & development, mobile UX design and brand identity.
 
@@ -13,10 +13,23 @@ Then open http://localhost:8080.
 
 ## Structure
 
-- `index.html` — homepage
+- `index.html` — homepage (hero, trust marquee, studio manifesto, services, selected work, process, CTA)
+- `about.html` — about page (story, values, how we work, milestones)
+- `work.html` — work page (filterable project grid, outcomes)
 - `assets/css/styles.css` — design tokens (dark · silver · white), layout, motion
-- `assets/js/main.js` — header state, mobile menu, scroll-spy, reveals, accessible hero carousel, marquee controls, custom cursor
-- `assets/img/` — silver-duotone brand visuals and procedural liquid-chrome textures (WebP)
+- `assets/js/main.js` — header state, mobile menu, scroll-spy, reveals, accessible hero carousel, marquee controls, work filters, custom cursor
+- `assets/img/` — silver-duotone brand visuals and procedural liquid-chrome textures (WebP, ≤1600px)
+- `assets/raw/` — original full-resolution photography; not referenced by the site
+
+## Visuals
+
+Photography is converted to a silver duotone (`#0a0a0c` → `#f0f1f4`) so every image sits inside the dark palette. Each new image is used once per page:
+
+| Asset | Where |
+|---|---|
+| `portrait-acrylic`, `city-aerial` | Home — studio section (framed portrait, inline headline crop) |
+| `portrait-smile`, `portrait-sunlit`, `portrait-gaze` | About — hero, story, how we work |
+| `portrait-glow-1`, `portrait-glow-2`, `city-aerial` | Work — hero and project grid |
 
 ## Design system (summary)
 
