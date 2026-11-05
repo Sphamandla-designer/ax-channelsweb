@@ -27,9 +27,11 @@ Photography is converted to a silver duotone (`#0a0a0c` → `#f0f1f4`) so every 
 
 | Asset | Where |
 |---|---|
-| `portrait-acrylic`, `city-aerial` | Home — studio section (framed portrait, inline headline crop) |
-| `portrait-smile`, `portrait-sunlit`, `portrait-gaze` | About — hero, story, how we work |
-| `portrait-glow-1`, `portrait-glow-2`, `city-aerial` | Work — hero and project grid |
+| `portrait-acrylic` | Home — studio band ("senior hands only") |
+| `portrait-smile`, `portrait-sunlit`, `city-aerial` | About — the people, the craft, where we are |
+| `portrait-glow-2`, `portrait-glow-1`, `portrait-gaze` | Work — featured case, Lumen Skin, Thandi & Co. |
+
+Every photo uses one treatment, `.band`: the same wide proportions as the service views (16:8.2 on desktop, 4:3 on phones), grayscale with a brightness lift on hover, an index badge and a caption strip that states what the image is evidence of.
 
 ## Design system (summary)
 
