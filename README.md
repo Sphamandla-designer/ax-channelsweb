@@ -23,6 +23,8 @@ Then open http://localhost:8080.
 - `assets/img/` — silver-duotone brand visuals and procedural liquid-chrome textures (WebP, ≤1600px)
 - `assets/raw/` — original full-resolution photography; not referenced by the site
 
+Work cards are placeholders (`figure.ph`) until real project mockups are supplied. The services section is a stacked list with a sticky detail panel (hover or click a service; arrow keys move between them; on phones the detail opens under the active name).
+
 ## Visuals
 
 Photography is converted to a silver duotone (`#0a0a0c` → `#f0f1f4`) so every image sits inside the dark palette. Each new image is used once per page:
