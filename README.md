@@ -15,28 +15,21 @@ Then open http://localhost:8080.
 
 ## Structure
 
-- `index.html` — homepage (hero, what-we-design marquee, about, five services, selected work, five-step approach, commitment, CTA)
+- `index.html` — homepage (hero, what-we-design marquee, 01 about with Google trust badge and outcome cards, 02 services, 03 selected work as three stacking case cards, 04 animated approach flow, 05 commitment, 06 CTA)
 - `about.html` — about page (what we do, mission & vision, what sets us apart, how we work, who we work with)
 - `work.html` — work page (filterable project grid by service line). Case studies are placeholders until real projects are supplied.
-- `assets/css/styles.css` — design tokens for the dark and light themes, layout, motion
-- `assets/js/main.js` — theme switcher, header state, mobile menu, scroll-spy, reveals, two-line heading fitting, sticky services stage, accessible hero carousel, marquee controls, work filters, custom cursor
-- `assets/img/` — silver-duotone brand visuals, colour service photography and procedural liquid-chrome textures (WebP, ≤1600px), used in dark mode
-- `assets/img/light/` — high-key light variants of every image above, used in light mode
+- `assets/css/styles.css` — design tokens (dark only), section surfaces, layout, motion
+- `assets/js/main.js` — header state, mobile menu, scroll-spy, reveals, two-line heading fitting, sticky services stage, accessible hero carousel, marquee controls, work filters, custom cursor, card spotlights, stacking work cards, scroll-lit approach flow
+- `assets/img/` — photography in its original colour and procedural liquid-chrome textures (WebP, ≤1400px, mostly under 80 KB)
 - `assets/raw/` — original full-resolution photography; not referenced by the site
 
 Work cards are placeholders (`figure.ph`) until real project mockups are supplied. The services section is a sticky scroll stage. On desktop, the image frame stays in place while the five service panels scroll past. The panel at the centre of the viewport becomes active: its image wipes in, the counter and label roll over, and its text rises into place. A progress bar and a slight parallax follow the scroll. Below 860px, each panel shows its own image, stacked.
 
-## Themes
+## Section surfaces
 
-The site ships in two themes: dark (the default) and light. The sun/moon button in the header switches between them. The choice is saved in `localStorage` (`ax-theme`) and applied by a small inline script in each page's `<head>` before the first paint, so the page doesn't flash the wrong theme.
+The site is dark only. Each homepage section sits on its own step of the ink ramp (`.surface-0` to `.surface-3`: `#0a0a0b`, `#0d0d10`, `#121215`, `#17171b`), starts with an accent hairline and carries a numbered eyebrow (`.sec-no`). The accent `#f5a623` is the only colour beyond ink, silver and white, and it marks state and progress: section numbers, meters, the approach rail, active steps.
 
-- Colours are tokens on `:root`; `:root[data-theme="light"]` overrides them (`--ink*` = surfaces, `--white` = foreground, `--silver*` = secondary text, `--ink-rgb` / `--fg-rgb` for translucent overlays).
-- Every `<img>` pointing at `assets/img/*.webp` swaps to `assets/img/light/*.webp` in light mode (handled in `main.js`). The CTA background uses the `--cta-image` token.
-- In browsers that support View Transitions, switching reveals the new theme in a circle that grows from the button; other browsers get a colour cross-fade.
-
-Light variants: toned images map their luminance onto the light ramp `#303238 → #fcfcfd`, and colour images (`service-*`, `pill-*`) are brightened with their colours kept. Each image gets its own `1 - (1 - t)^k` curve, where `k` is chosen so the average brightness lands at about 72%. Regenerate the variants whenever you add or replace an image.
-
-The `standalone-preview/` single-file builds predate the theme switcher and need rebuilding to include it.
+The `standalone-preview/` single-file builds inline the CSS, JS and images. Rebuild them after changes.
 
 ## Headings
 
@@ -44,15 +37,15 @@ Display titles are always exactly two lines. Write each line as `<span class="ln
 
 ## Visuals
 
-Photography is converted to a silver duotone (`#0a0a0c` → `#f0f1f4`) so every image sits inside the dark palette. Each new image is used once per page:
+Photography keeps the colour it was supplied in. Images that were supplied in black and white (`city-aerial`, `portrait-sunlit`, `portrait-gaze`) stay that way. No CSS filter desaturates images. Photos are exported from `assets/raw/` at 1400px or less, WebP quality 74. The home studio image also has an 800px version served through `srcset`.
 
 | Asset | Where |
 |---|---|
-| `portrait-acrylic` | Home — studio band ("senior hands only") |
+| `portrait-acrylic` | Home — about band, with the Google trust badge |
 | `portrait-smile`, `portrait-sunlit`, `city-aerial` | About — the people, the craft, where we are |
 | `portrait-glow-2`, `portrait-glow-1`, `portrait-gaze` | Work — featured case, Lumen Skin, Thandi & Co. |
 
-Every photo uses one treatment, `.band`: the same wide proportions as the service views (16:8.2 on desktop, 4:3 on phones), grayscale with a brightness lift on hover, an index badge and a caption strip that states what the image is evidence of.
+The home "Selected work" cards use CSS-built concept mockups (browser, phones, dashboard) until real project mockups are supplied.
 
 ## Design system (summary)
 

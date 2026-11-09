@@ -4,63 +4,6 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-  /* ---------- Theme (dark / light) ---------- */
-  const root = document.documentElement;
-  const themeBtn = $('[data-theme-toggle]');
-  const metaTheme = $('meta[name="theme-color"]');
-  const IMG_RE = /(^|\/)assets\/img\/(?!light\/)([^/]+\.webp)$/;
-  const themedImgs = $$('img').filter((img) => {
-    const src = img.getAttribute('src') || '';
-    return IMG_RE.test(src) && !/og-/.test(src);
-  });
-  themedImgs.forEach((img) => {
-    const src = img.getAttribute('src');
-    img.dataset.srcDark = src;
-    img.dataset.srcLight = src.replace(IMG_RE, '$1assets/img/light/$2');
-  });
-  const swapImages = (t) => themedImgs.forEach((img) => {
-    const next = t === 'light' ? img.dataset.srcLight : img.dataset.srcDark;
-    if (img.getAttribute('src') !== next) img.setAttribute('src', next);
-  });
-  const paintTheme = (t) => {
-    root.setAttribute('data-theme', t);
-    swapImages(t);
-    if (metaTheme) metaTheme.setAttribute('content', t === 'light' ? '#f6f6f8' : '#0a0a0b');
-    if (themeBtn) themeBtn.setAttribute('aria-label', t === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
-  };
-  const currentTheme = () => (root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
-  paintTheme(currentTheme());
-
-  const inView = (el) => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 0; };
-  const waitForVisible = () => Promise.race([
-    Promise.all(themedImgs.filter(inView).map((img) => (img.decode ? img.decode().catch(() => {}) : null))),
-    new Promise((r) => setTimeout(r, 450)),
-  ]);
-
-  if (themeBtn) {
-    themeBtn.addEventListener('click', () => {
-      const next = currentTheme() === 'light' ? 'dark' : 'light';
-      try { localStorage.setItem('ax-theme', next); } catch (e) {}
-      if (reduceMotion.matches) { paintTheme(next); return; }
-      if (document.startViewTransition) {
-        const b = themeBtn.getBoundingClientRect();
-        const x = b.left + b.width / 2, y = b.top + b.height / 2;
-        const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-        const vt = document.startViewTransition(async () => { paintTheme(next); await waitForVisible(); });
-        vt.ready.then(() => {
-          root.animate(
-            { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
-            { duration: 750, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', pseudoElement: '::view-transition-new(root)' }
-          );
-        }).catch(() => {});
-      } else {
-        root.classList.add('theme-fade');
-        paintTheme(next);
-        setTimeout(() => root.classList.remove('theme-fade'), 600);
-      }
-    });
-  }
-
   /* ---------- Header state ---------- */
   const header = $('.site-header');
   const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
@@ -133,6 +76,91 @@
       });
     }, { threshold: 0.6 });
     counters.forEach((c) => cio.observe(c));
+  }
+
+  /* ---------- Pointer spotlight on cards ---------- */
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+  if (fine.matches) {
+    $$('[data-spot]').forEach((el) => {
+      el.addEventListener('pointermove', (e) => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+  }
+
+  /* ---------- Selected work: stacking case cards + 3D mockup tilt ---------- */
+  const cases = $$('.case');
+  if (cases.length) {
+    if (reduceMotion.matches || !('IntersectionObserver' in window)) {
+      cases.forEach((c) => c.classList.add('is-in'));
+    } else {
+      const caseIO = new IntersectionObserver((entries) => {
+        entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('is-in'); caseIO.unobserve(en.target); } });
+      }, { threshold: 0.3 });
+      cases.forEach((c) => caseIO.observe(c));
+    }
+    const cards = cases.map((c) => $('.case-card', c));
+    let ticking = false;
+    const stack = () => {
+      ticking = false;
+      const sticky = window.innerWidth > 1100 && !reduceMotion.matches;
+      cards.forEach((card, i) => {
+        const next = cards[i + 1];
+        if (!sticky || !next) { card.style.setProperty('--stack', 0); return; }
+        const a = card.getBoundingClientRect(); const b = next.getBoundingClientRect();
+        const p = Math.min(1, Math.max(0, (a.bottom - b.top) / a.height));
+        card.style.setProperty('--stack', p.toFixed(3));
+      });
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(stack); } }, { passive: true });
+    window.addEventListener('resize', stack);
+    stack();
+    if (fine.matches && !reduceMotion.matches) {
+      cards.forEach((card) => {
+        const mock = $('.case-visual > div', card);
+        if (!mock) return;
+        card.addEventListener('pointermove', (e) => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+          mock.style.setProperty('--ry', (x * 16).toFixed(2) + 'deg');
+          mock.style.setProperty('--rx', (-y * 10).toFixed(2) + 'deg');
+        });
+        card.addEventListener('pointerleave', () => { mock.style.setProperty('--ry', '0deg'); mock.style.setProperty('--rx', '0deg'); });
+      });
+    }
+  }
+
+  /* ---------- Approach: scroll-lit flow ---------- */
+  const flow = $('[data-flow]');
+  if (flow) {
+    const steps = $$('.flow-card', flow);
+    if (reduceMotion.matches || !('IntersectionObserver' in window)) {
+      flow.classList.add('is-in'); flow.style.setProperty('--flow', 1); steps.forEach((s) => s.classList.add('is-lit'));
+    } else {
+      const fio = new IntersectionObserver((entries) => {
+        entries.forEach((en) => { if (en.isIntersecting) { flow.classList.add('is-in'); fio.disconnect(); } });
+      }, { threshold: 0.15 });
+      fio.observe(flow);
+      let fTick = false;
+      const light = () => {
+        fTick = false;
+        const r = flow.getBoundingClientRect(); const vh = window.innerHeight;
+        const vertical = window.innerWidth <= 1100;
+        const p = vertical
+          ? Math.min(1, Math.max(0, (vh * 0.6 - r.top) / r.height))
+          : Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (vh * 0.5)));
+        flow.style.setProperty('--flow', p.toFixed(3));
+        steps.forEach((s, i) => {
+          const at = vertical ? (s.offsetTop + 30) / r.height : (i + 0.5) / steps.length;
+          s.classList.toggle('is-lit', p >= at);
+        });
+      };
+      window.addEventListener('scroll', () => { if (!fTick) { fTick = true; requestAnimationFrame(light); } }, { passive: true });
+      window.addEventListener('resize', light);
+      light();
+    }
   }
 
   /* ---------- Hero carousel (accessible auto-rotation) ---------- */
