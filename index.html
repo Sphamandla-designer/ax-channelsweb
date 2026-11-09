@@ -15,15 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="image" href="assets/img/hero-portrait.webp">
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <script>
-    /* Apply the saved theme before first paint (dark is the default) */
-    (function () {
-      var t = 'dark';
-      try { var s = localStorage.getItem('ax-theme'); if (s === 'light' || s === 'dark') t = s; } catch (e) {}
-      document.documentElement.setAttribute('data-theme', t);
-    })();
-  </script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261108">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261109">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -45,10 +37,6 @@
       </nav>
 
       <div class="header-actions">
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light theme">
-          <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
-          <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
-        </button>
         <a href="#contact" class="btn btn-pill"><span class="dot" aria-hidden="true"></span>Start a project</a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
           <span></span><span></span>
@@ -152,40 +140,70 @@
     </section>
 
     <!-- ============ STUDIO ============ -->
-    <section class="studio section" id="about" aria-labelledby="studio-title">
+    <section class="studio section surface-2" id="about" aria-labelledby="studio-title">
       <div class="container">
         <div class="studio-head">
-          <p class="eyebrow reveal" id="studio-title"><sup>®</sup> About AX-Channels</p>
+          <p class="eyebrow reveal" id="studio-title"><span class="sec-no">01</span> About AX-Channels</p>
           <div>
             <h2 class="display studio-title reveal" data-fit><span class="ln">Design that solves</span><span class="ln">the problem.</span></h2>
             <div class="studio-intro">
+              <p class="studio-lede reveal">A South African digital design studio specialising in UX, UI and digital solutions for businesses.</p>
               <div class="reveal">
-                <p class="studio-lede">A South African digital design studio specialising in UX, UI and digital solutions for businesses.</p>
                 <p>With over three years in digital design, we help businesses turn ideas, operational requirements and business challenges into functional, intuitive and visually refined digital experiences. Our work spans business websites, mobile applications, enterprise software and SaaS dashboards, alongside branding and visual identity.</p>
                 <a href="about.html" class="link-arrow">More about the studio <span aria-hidden="true">→</span></a>
               </div>
-              <a class="rating rating-card reveal" href="#" aria-label="Rated 5.0 on Google from 16 client reviews">
-                <span class="rating-google"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.4z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path fill="#FBBC04" d="M6.4 14a6 6 0 0 1 0-3.9V7.5H3.1a10 10 0 0 0 0 9z"/><path fill="#EA4335" d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.5L6.4 10c.8-2.3 3-4 5.6-4z"/></svg> Google rating</span>
-                <span class="rating-score"><strong>5.0</strong><span class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></span>
-                <span class="rating-note">From 16 client reviews. Every one of them five stars.</span>
-                <span class="rating-link">Read the reviews <span aria-hidden="true">→</span></span>
-              </a>
             </div>
           </div>
         </div>
 
-        <figure class="band reveal">
-          <img src="assets/img/portrait-acrylic.webp" width="1600" height="1148" alt="A designer holding a sheet of acrylic marked with brush strokes, during a studio session" loading="lazy" style="--pos: 55% 30%">
-          <span class="index">Studio</span>
-          <span class="tag">South Africa</span>
-        </figure>
-        <figcaption class="band-caption reveal"><span><strong>UX first.</strong> Effective digital products should solve problems, simplify interactions and make everyday tasks easier for the people who use them.</span><span>Remote-first · Nationwide</span></figcaption>
+        <div class="studio-media reveal">
+          <figure class="band">
+            <img src="assets/img/portrait-acrylic.webp" srcset="assets/img/portrait-acrylic-800.webp 800w, assets/img/portrait-acrylic.webp 1400w" sizes="(max-width: 860px) 100vw, 1312px" width="1400" height="1005" alt="A designer holding a sheet of acrylic marked with brush strokes, during a studio session" loading="lazy" decoding="async" style="--pos: 55% 30%">
+            <span class="index">Studio</span>
+            <span class="tag">South Africa</span>
+          </figure>
 
-        <div class="stats reveal" role="list" aria-label="Studio at a glance">
-          <div role="listitem"><strong data-count="3" data-suffix="+">3+</strong><span>Years in digital design</span></div>
-          <div role="listitem"><strong data-count="5">5</strong><span>Service lines, one standard</span></div>
-          <div role="listitem"><strong data-count="16">16</strong><span>Five-star client reviews on Google</span></div>
-          <div role="listitem"><strong>Remote</strong><span>Nationwide collaboration, beyond geography</span></div>
+          <!-- Google trust badge: floats on the image, same glass language as the rest of the site -->
+          <a class="trust" href="#" aria-label="Rated 5.0 out of 5 on Google from 16 client reviews. Read the reviews">
+            <span class="trust-g" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.4z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path fill="#FBBC04" d="M6.4 14a6 6 0 0 1 0-3.9V7.5H3.1a10 10 0 0 0 0 9z"/><path fill="#EA4335" d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.5L6.4 10c.8-2.3 3-4 5.6-4z"/></svg></span>
+            <span class="trust-body">
+              <span class="trust-top"><strong>5.0</strong><span class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></span>
+              <span class="trust-note">16 Google reviews · all five-star</span>
+            </span>
+            <span class="trust-go" aria-hidden="true">→</span>
+          </a>
+        </div>
+        <p class="band-caption reveal"><span><strong>UX first.</strong> Effective digital products should solve problems, simplify interactions and make everyday tasks easier for the people who use them.</span><span>Remote-first · Nationwide</span></p>
+
+        <div class="outcomes-grid" role="list" aria-label="What working with us delivers">
+          <div class="outcome reveal" role="listitem">
+            <span class="outcome-k">Client satisfaction</span>
+            <strong class="outcome-n"><span data-count="100" data-suffix="%">100%</span></strong>
+            <h3>Every client rated us five stars</h3>
+            <p>16 out of 16 Google reviews are five-star. Clients rate the result and the way we got there.</p>
+            <span class="meter" aria-hidden="true"><i style="--v: 1"></i></span>
+          </div>
+          <div class="outcome reveal" role="listitem">
+            <span class="outcome-k">One partner</span>
+            <strong class="outcome-n"><span data-count="5">5</span><small>in 1</small></strong>
+            <h3>No hand-offs between agencies</h3>
+            <p>Brand, website, app and dashboard designed by one team, so your product looks and works as one system.</p>
+            <span class="meter meter-steps" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          </div>
+          <div class="outcome reveal" role="listitem">
+            <span class="outcome-k">Experience</span>
+            <strong class="outcome-n"><span data-count="3" data-suffix="+">3+</span><small>years</small></strong>
+            <h3>Ideas turned into shipped products</h3>
+            <p>Years of turning business requirements into interfaces developers can build and people can use.</p>
+            <span class="meter" aria-hidden="true"><i style="--v: .75"></i></span>
+          </div>
+          <div class="outcome reveal" role="listitem">
+            <span class="outcome-k">Reach</span>
+            <strong class="outcome-n">0<small>km</small></strong>
+            <h3>Distance is never a blocker</h3>
+            <p>Remote-first and nationwide. Work with us from anywhere in South Africa, with no travel time or costs.</p>
+            <span class="meter meter-pulse" aria-hidden="true"><i></i></span>
+          </div>
         </div>
 
         <ol class="principles" aria-label="How we think">
@@ -197,10 +215,10 @@
     </section>
 
     <!-- ============ SERVICES ============ -->
-    <section class="services section" id="services" aria-labelledby="services-title">
+    <section class="services section surface-0" id="services" aria-labelledby="services-title">
       <div class="container">
         <div class="services-head">
-          <p class="eyebrow reveal sr-only" id="services-title">Our services</p>
+          <p class="eyebrow reveal services-eyebrow" id="services-title"><span class="sec-no">02</span> Our services</p>
           <h2 class="services-title reveal" data-fit><span class="ln">Everything <span class="pill" aria-hidden="true"><img src="assets/img/pill-saas.webp" width="320" height="320" alt="" loading="lazy"></span> your</span><span class="ln">brand needs</span></h2>
           <p class="services-lede reveal">Five service lines, one standard. Strategic design, practical technology and user-centred execution, with a clear list of what every engagement includes.</p>
         </div>
@@ -278,47 +296,101 @@
     </section>
 
     <!-- ============ WORK ============ -->
-    <section class="work section" id="work" aria-labelledby="work-title">
+    <section class="work section surface-3" id="work" aria-labelledby="work-title">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow reveal" id="work-title"><sup>®</sup> Selected work</p>
-          <h2 class="display reveal" data-fit><span class="ln">Purposeful work,</span><span class="ln">every channel.</span></h2>
+          <p class="eyebrow reveal" id="work-title"><span class="sec-no">03</span> Selected work</p>
+          <div>
+            <h2 class="display reveal" data-fit><span class="ln">Purposeful work,</span><span class="ln">every channel.</span></h2>
+            <p class="section-lede reveal">Three projects, three channels: a corporate website, a mobile app and an enterprise dashboard.</p>
+          </div>
         </div>
 
-        <div class="work-grid">
-          <a href="#contact" class="work-card reveal span-7 tall">
-            <figure class="ph" aria-label="Project mockup coming soon"><span class="ref">01</span><span class="ph-label">Mockup coming soon</span></figure>
-            <div class="work-meta">
-              <h3>Meridian Capital</h3>
-              <p>Corporate website · Brand identity</p>
-              <span>2025</span>
-            </div>
-          </a>
-          <a href="#contact" class="work-card reveal span-5">
-            <figure class="ph" aria-label="Project mockup coming soon"><span class="ref">02</span><span class="ph-label">Mockup coming soon</span></figure>
-            <div class="work-meta">
-              <h3>Umoya Mobility</h3>
-              <p>Mobile app UI/UX</p>
-              <span>2025</span>
-            </div>
-          </a>
-          <a href="#contact" class="work-card reveal span-5">
-            <figure class="ph" aria-label="Project mockup coming soon"><span class="ref">03</span><span class="ph-label">Mockup coming soon</span></figure>
-            <div class="work-meta">
-              <h3>Kasi Kitchen</h3>
-              <p>E-commerce website</p>
-              <span>2024</span>
-            </div>
-          </a>
-          <a href="#contact" class="work-card reveal span-7">
-            <figure class="ph" aria-label="Project mockup coming soon"><span class="ref">04</span><span class="ph-label">Mockup coming soon</span></figure>
-            <div class="work-meta">
-              <h3>Altitude Health</h3>
-              <p>Enterprise dashboard · Design system</p>
-              <span>2024</span>
-            </div>
-          </a>
-        </div>
+        <ol class="case-stack" aria-label="Selected projects">
+          <li class="case" style="--i: 0">
+            <a href="work.html" class="case-card" data-spot>
+              <div class="case-body">
+                <div class="case-top"><span class="case-no">01 <small>/ 03</small></span><span class="case-year">2025</span></div>
+                <h3 class="case-title">Meridian Capital</h3>
+                <ul class="case-tags" aria-label="Services"><li>Corporate website</li><li>Brand identity</li><li>CMS</li></ul>
+                <p class="case-desc">A financial services brand that needed to look as established online as it is in the boardroom.</p>
+                <dl class="case-facts">
+                  <div><dt>Delivered</dt><dd>CMS-powered corporate site, identity system and brand guidelines</dd></div>
+                  <div><dt>Channel</dt><dd>Web · Desktop &amp; mobile</dd></div>
+                </dl>
+                <span class="case-cta">View project <span aria-hidden="true">→</span></span>
+              </div>
+              <div class="case-visual" aria-hidden="true">
+                <div class="mock-browser">
+                  <div class="mb-bar"><i></i><i></i><i></i><span>meridiancapital.co.za</span></div>
+                  <div class="mb-page">
+                    <div class="mb-nav"><b></b><span></span><span></span><span></span><em></em></div>
+                    <div class="mb-hero"><span class="l1"></span><span class="l2"></span><span class="l3"></span><em></em></div>
+                    <div class="mb-cards"><span></span><span></span><span></span></div>
+                  </div>
+                </div>
+                <span class="case-badge">Concept preview</span>
+              </div>
+            </a>
+          </li>
+          <li class="case" style="--i: 1">
+            <a href="work.html" class="case-card" data-spot>
+              <div class="case-body">
+                <div class="case-top"><span class="case-no">02 <small>/ 03</small></span><span class="case-year">2025</span></div>
+                <h3 class="case-title">Umoya Mobility</h3>
+                <ul class="case-tags" aria-label="Services"><li>Mobile app UI/UX</li><li>Design system</li><li>Prototyping</li></ul>
+                <p class="case-desc">A mobility service made simple enough to book, track and pay for in a few taps.</p>
+                <dl class="case-facts">
+                  <div><dt>Delivered</dt><dd>iOS &amp; Android flows, interactive prototypes and developer handoff</dd></div>
+                  <div><dt>Channel</dt><dd>Mobile · iOS &amp; Android</dd></div>
+                </dl>
+                <span class="case-cta">View project <span aria-hidden="true">→</span></span>
+              </div>
+              <div class="case-visual" aria-hidden="true">
+                <div class="mock-phone">
+                  <div class="mp-notch"></div>
+                  <div class="mp-map">
+                    <svg viewBox="0 0 200 160" preserveAspectRatio="none"><path class="route" d="M20 140 C 60 120, 50 70, 100 70 S 150 30, 180 20" fill="none" stroke-width="4" stroke-linecap="round"/><circle cx="20" cy="140" r="7"/><circle cx="180" cy="20" r="7"/></svg>
+                  </div>
+                  <div class="mp-sheet"><span class="l1"></span><span class="l2"></span><div class="mp-row"><em></em><em></em></div><b>Book ride</b></div>
+                </div>
+                <div class="mock-phone mock-phone-2">
+                  <div class="mp-notch"></div>
+                  <div class="mp-list"><span></span><span></span><span></span><span></span></div>
+                </div>
+                <span class="case-badge">Concept preview</span>
+              </div>
+            </a>
+          </li>
+          <li class="case" style="--i: 2">
+            <a href="work.html" class="case-card" data-spot>
+              <div class="case-body">
+                <div class="case-top"><span class="case-no">03 <small>/ 03</small></span><span class="case-year">2024</span></div>
+                <h3 class="case-title">Altitude Health</h3>
+                <ul class="case-tags" aria-label="Services"><li>Enterprise dashboard</li><li>Data visualisation</li><li>Design system</li></ul>
+                <p class="case-desc">Operations teams needed one clear view of patients, staff and reporting instead of five spreadsheets.</p>
+                <dl class="case-facts">
+                  <div><dt>Delivered</dt><dd>Operations dashboard, role-based views, reporting and a component library</dd></div>
+                  <div><dt>Channel</dt><dd>SaaS · Web application</dd></div>
+                </dl>
+                <span class="case-cta">View project <span aria-hidden="true">→</span></span>
+              </div>
+              <div class="case-visual" aria-hidden="true">
+                <div class="mock-dash">
+                  <div class="md-side"><b></b><span></span><span></span><span></span><span></span></div>
+                  <div class="md-main">
+                    <div class="md-kpis"><span><em></em><i></i></span><span><em></em><i></i></span><span><em></em><i></i></span></div>
+                    <div class="md-charts">
+                      <div class="md-bars"><i style="--h:.45"></i><i style="--h:.7"></i><i style="--h:.55"></i><i style="--h:.9"></i><i style="--h:.65"></i><i style="--h:.8"></i><i style="--h:1"></i></div>
+                      <div class="md-line"><svg viewBox="0 0 200 100" preserveAspectRatio="none"><path class="area" d="M0 80 L30 62 L60 70 L90 40 L120 48 L150 22 L200 12 L200 100 L0 100Z"/><path class="line" d="M0 80 L30 62 L60 70 L90 40 L120 48 L150 22 L200 12" fill="none" stroke-width="3"/></svg></div>
+                    </div>
+                  </div>
+                </div>
+                <span class="case-badge">Concept preview</span>
+              </div>
+            </a>
+          </li>
+        </ol>
 
         <div class="work-foot reveal">
           <a href="work.html" class="btn btn-outline">View all projects <span aria-hidden="true">→</span></a>
@@ -327,29 +399,58 @@
     </section>
 
     <!-- ============ PROCESS ============ -->
-    <section class="process section" id="process" aria-labelledby="process-title">
+    <section class="process section surface-1" id="process" aria-labelledby="process-title">
+      <div class="process-glow" aria-hidden="true"></div>
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow reveal" id="process-title"><sup>®</sup> Our approach</p>
+          <p class="eyebrow reveal" id="process-title"><span class="sec-no">04</span> Our approach</p>
           <div>
             <h2 class="display reveal" data-fit><span class="ln">Good design begins</span><span class="ln">with the problem.</span></h2>
             <p class="section-lede reveal">Every project combines business requirements, user needs and practical implementation considerations.</p>
           </div>
         </div>
-        <ol class="steps steps-5">
-          <li class="reveal"><span class="step-no">01</span><h3>Discovery</h3><p>We understand the business, its objectives, target audience, challenges and project requirements.</p></li>
-          <li class="reveal"><span class="step-no">02</span><h3>Strategy &amp; Structure</h3><p>We establish the information architecture, user journeys, functionality and overall direction of the project.</p></li>
-          <li class="reveal"><span class="step-no">03</span><h3>Design</h3><p>We develop the visual direction, interfaces, components and interactions needed for a consistent user experience.</p></li>
-          <li class="reveal"><span class="step-no">04</span><h3>Development &amp; Implementation</h3><p>Where included in scope, we translate approved website designs into functional digital experiences.</p></li>
-          <li class="reveal"><span class="step-no">05</span><h3>Testing &amp; Refinement</h3><p>We review functionality, responsiveness, usability and overall experience, and refine before delivery.</p></li>
-        </ol>
+        <div class="flow" data-flow>
+          <div class="flow-rail" aria-hidden="true"><i></i></div>
+          <ol class="flow-steps">
+            <li class="flow-card" data-spot style="--i: 0">
+              <div class="fc-head"><span class="fc-no">01</span><span class="fc-ico" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="14" cy="14" r="8"/><path d="M20 20l7 7"/></svg></span></div>
+              <h3>Discovery</h3>
+              <p>We understand the business, its objectives, target audience, challenges and project requirements.</p>
+              <span class="fc-out">You get <b>a clear brief</b></span>
+            </li>
+            <li class="flow-card" data-spot style="--i: 1">
+              <div class="fc-head"><span class="fc-no">02</span><span class="fc-ico" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="4" y="4" width="10" height="10"/><rect x="18" y="18" width="10" height="10"/><path d="M14 9h6v9"/></svg></span></div>
+              <h3>Strategy &amp; Structure</h3>
+              <p>We establish the information architecture, user journeys, functionality and overall direction of the project.</p>
+              <span class="fc-out">You get <b>sitemaps &amp; flows</b></span>
+            </li>
+            <li class="flow-card" data-spot style="--i: 2">
+              <div class="fc-head"><span class="fc-no">03</span><span class="fc-ico" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 26l4-1 15-15-3-3L7 22z"/><path d="M19 10l3 3"/></svg></span></div>
+              <h3>Design</h3>
+              <p>We develop the visual direction, interfaces, components and interactions needed for a consistent user experience.</p>
+              <span class="fc-out">You get <b>interfaces &amp; prototypes</b></span>
+            </li>
+            <li class="flow-card" data-spot style="--i: 3">
+              <div class="fc-head"><span class="fc-no">04</span><span class="fc-ico" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M11 9l-7 7 7 7"/><path d="M21 9l7 7-7 7"/><path d="M18 6l-4 20"/></svg></span></div>
+              <h3>Development &amp; Implementation</h3>
+              <p>Where included in scope, we translate approved website designs into functional digital experiences.</p>
+              <span class="fc-out">You get <b>a working build</b></span>
+            </li>
+            <li class="flow-card" data-spot style="--i: 4">
+              <div class="fc-head"><span class="fc-no">05</span><span class="fc-ico" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11"/><path d="M11 16.5l3.5 3.5L21 13"/></svg></span></div>
+              <h3>Testing &amp; Refinement</h3>
+              <p>We review functionality, responsiveness, usability and overall experience, and refine before delivery.</p>
+              <span class="fc-out">You get <b>a launch-ready product</b></span>
+            </li>
+          </ol>
+        </div>
       </div>
     </section>
 
     <!-- ============ COMMITMENT ============ -->
-    <section class="testimonial section" aria-labelledby="commitment-title">
+    <section class="testimonial section surface-2" aria-labelledby="commitment-title">
       <div class="container split">
-        <p class="eyebrow reveal" id="commitment-title"><sup>®</sup> Our commitment</p>
+        <p class="eyebrow reveal" id="commitment-title"><span class="sec-no">05</span> Our commitment</p>
         <figure class="quote reveal">
           <blockquote>
             “Every business has different objectives, challenges and users. We do not believe in applying the same solution to every project.”
@@ -363,10 +464,10 @@
     </section>
 
     <!-- ============ CTA ============ -->
-    <section class="cta section" id="contact" aria-labelledby="cta-title">
+    <section class="cta section surface-0" id="contact" aria-labelledby="cta-title">
       <div class="cta-bg" aria-hidden="true"></div>
       <div class="container">
-        <p class="eyebrow reveal"><sup>®</sup> Start a project</p>
+        <p class="eyebrow reveal"><span class="sec-no">06</span> Start a project</p>
         <h2 class="display-xl reveal" id="cta-title" data-fit><span class="ln chrome-text">Let's build</span><span class="ln">meaningful work.</span></h2>
         <div class="cta-row reveal">
           <a href="mailto:hello@axchannels.co.za" class="btn btn-solid">hello@axchannels.co.za</a>
@@ -417,6 +518,6 @@
     <div class="footer-wordmark" aria-hidden="true">AX-CHANNELS</div>
   </footer>
 
-  <script src="assets/js/main.js?v=20261108" defer></script>
+  <script src="assets/js/main.js?v=20261109" defer></script>
 </body>
 </html>
