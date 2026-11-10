@@ -15,11 +15,11 @@ Then open http://localhost:8080.
 
 ## Structure
 
-- `index.html` — homepage (hero, what-we-design marquee, 01 about with Google trust badge and outcome cards, 02 services, 03 selected work as three stacking case cards, 04 animated approach flow, 05 commitment, 06 CTA)
+- `index.html` — homepage (hero, what-we-design marquee, centred about over a silver channel pattern with a Google trust badge, light silver services, selected work as three stacking case cards, commitment, CTA)
 - `about.html` — about page (what we do, mission & vision, what sets us apart, how we work, who we work with)
 - `work.html` — work page (filterable project grid by service line). Case studies are placeholders until real projects are supplied.
 - `assets/css/styles.css` — design tokens (dark only), section surfaces, layout, motion
-- `assets/js/main.js` — header state, mobile menu, scroll-spy, reveals, two-line heading fitting, sticky services stage, accessible hero carousel, marquee controls, work filters, custom cursor, card spotlights, stacking work cards, scroll-lit approach flow
+- `assets/js/main.js` — header state, mobile menu, scroll-spy, reveals, two-line heading fitting, sticky services stage, accessible hero carousel, marquee controls, work filters, custom cursor, card spotlights, stacking work cards
 - `assets/img/` — photography in its original colour and procedural liquid-chrome textures (WebP, ≤1400px, mostly under 80 KB)
 - `assets/raw/` — original full-resolution photography; not referenced by the site
 
@@ -27,7 +27,7 @@ Work cards are placeholders (`figure.ph`) until real project mockups are supplie
 
 ## Section surfaces
 
-The site is dark only. Each homepage section sits on its own step of the ink ramp (`.surface-0` to `.surface-3`: `#0a0a0b`, `#0d0d10`, `#121215`, `#17171b`), starts with an accent hairline and carries a numbered eyebrow (`.sec-no`). The accent `#f5a623` is the only colour beyond ink, silver and white, and it marks state and progress: section numbers, meters, the approach rail, active steps.
+The site is dark only, in ink, silver and white. There is no orange. Dark sections sit on steps of the ink ramp (`.surface-0` to `.surface-3`: `#0a0a0b`, `#0d0d10`, `#121215`, `#17171b`), each starting with a silver hairline. Each page has one light silver section (`.surface-light`): Services on the home page, What sets us apart on About, and What every project includes on Work. `.surface-light` flips the colour tokens inside the section, so components need no light-specific styles. The site shows no stat figures.
 
 The `standalone-preview/` single-file builds inline the CSS, JS and images. Rebuild them after changes.
 
