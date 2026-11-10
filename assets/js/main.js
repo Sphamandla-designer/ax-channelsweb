@@ -57,27 +57,6 @@
     reveals.forEach((el) => io.observe(el));
   }
 
-  /* ---------- Count-up stats ---------- */
-  const counters = $$('[data-count]');
-  if (counters.length && !reduceMotion.matches && 'IntersectionObserver' in window) {
-    const cio = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (!en.isIntersecting) return;
-        const el = en.target; cio.unobserve(el);
-        const target = Number(el.dataset.count); const suffix = el.dataset.suffix || '';
-        const decimals = (String(el.dataset.count).split('.')[1] || '').length;
-        const start = performance.now(); const dur = 1400;
-        const tick = (t) => {
-          const p = Math.min(1, (t - start) / dur); const eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = (target * eased).toFixed(decimals) + suffix;
-          if (p < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      });
-    }, { threshold: 0.6 });
-    counters.forEach((c) => cio.observe(c));
-  }
-
   /* ---------- Pointer spotlight on cards ---------- */
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
   if (fine.matches) {
@@ -129,37 +108,6 @@
         });
         card.addEventListener('pointerleave', () => { mock.style.setProperty('--ry', '0deg'); mock.style.setProperty('--rx', '0deg'); });
       });
-    }
-  }
-
-  /* ---------- Approach: scroll-lit flow ---------- */
-  const flow = $('[data-flow]');
-  if (flow) {
-    const steps = $$('.flow-card', flow);
-    if (reduceMotion.matches || !('IntersectionObserver' in window)) {
-      flow.classList.add('is-in'); flow.style.setProperty('--flow', 1); steps.forEach((s) => s.classList.add('is-lit'));
-    } else {
-      const fio = new IntersectionObserver((entries) => {
-        entries.forEach((en) => { if (en.isIntersecting) { flow.classList.add('is-in'); fio.disconnect(); } });
-      }, { threshold: 0.15 });
-      fio.observe(flow);
-      let fTick = false;
-      const light = () => {
-        fTick = false;
-        const r = flow.getBoundingClientRect(); const vh = window.innerHeight;
-        const vertical = window.innerWidth <= 1100;
-        const p = vertical
-          ? Math.min(1, Math.max(0, (vh * 0.6 - r.top) / r.height))
-          : Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (vh * 0.5)));
-        flow.style.setProperty('--flow', p.toFixed(3));
-        steps.forEach((s, i) => {
-          const at = vertical ? (s.offsetTop + 30) / r.height : (i + 0.5) / steps.length;
-          s.classList.toggle('is-lit', p >= at);
-        });
-      };
-      window.addEventListener('scroll', () => { if (!fTick) { fTick = true; requestAnimationFrame(light); } }, { passive: true });
-      window.addEventListener('resize', light);
-      light();
     }
   }
 
